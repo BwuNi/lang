@@ -20,7 +20,7 @@ module.exports = function (source) {
     const
         options = loaderUtils.getOptions(this) || {},
         context = options.context || this.rootContext || this.options && this.options.context,
-        $option = this.options,
+        $option = this._compilation.compiler.options,
         _this = this,
         callback = this.async()
 

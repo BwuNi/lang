@@ -1,8 +1,8 @@
 
 const
     path = require('path'),
-    lang = require('./src/lang') 
-    loaderUtils = require('loader-utils'),
+    lang = require('./src/lang')
+loaderUtils = require('loader-utils'),
     validateOptions = require('schema-utils'),
     cp = require('child_process'),
     os = require('os'),
@@ -19,18 +19,14 @@ const option_type = {
 module.exports = function (source) {
     if (!this.emitFile) throw new Error('File Loader\n\nemitFile is required from module system')
 
-    console.log(source)
     const result = lang(source)
-
-    console.log(result)
 
     const
         options = loaderUtils.getOptions(this) || {},
         context = options.context || this.rootContext || this.options && this.options.context,
-        $option = this.options,
-        _this = this
+        $option = this._compilation.compiler.options,
+        _this = this,
         callback = this.async()
-
 
     let
         url = loaderUtils.interpolateName(this, options.name, {
@@ -50,6 +46,9 @@ module.exports = function (source) {
     const
         temp_wat_path = path.resolve(os.tmpdir(), path.basename(this.resource)),
         temp_wasm_path = path.resolve(os.tmpdir(), path.basename(url))
+
+
+
 
     createTempFile(temp_wat_path, result)
         .then(() => compileTempFile(temp_wat_path, temp_wasm_path))

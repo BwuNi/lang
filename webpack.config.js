@@ -12,12 +12,12 @@ module.exports = {
         chunkFilename:'chunk/[id]_[chunkhash:8].chunk.js'
     },
 	devServer:{
-        port:8080,
+        port:18080,
         inline:true,
     },
     devtool:"source-map",
     module:{
-        loaders:[
+        rules:[
             {
                 test:/\.css$/,
                 loader:'style-loader!css-loader'
